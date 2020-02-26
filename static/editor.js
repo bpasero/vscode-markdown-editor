@@ -2,32 +2,49 @@
 (function () {
     const vscode = acquireVsCodeApi();
 
-    vscode.postMessage('markdown:ready');
-})();
+    vscode.postMessage({ type: 'webview->exthost:ready' });
 
+    let editor;
+    let ignoreChange = false;
 
-window.addEventListener('message', e => {
-    switch (e.data.id) {
-        case 'markdown:contents':
-            buildEditor(e.data.value);
-            break;
-    }
-});
+    window.addEventListener('message', e => {
+        switch (e.data.type) {
+            case 'exhost->webview:init':
+                editor = buildEditor(e.data.payload);
+                break;
+            case 'exhost->webview:updateContent':
+                ignoreChange = true;
+                try {
+                    editor.setValue(e.data.payload);
+                } finally {
+                    ignoreChange = false;
+                }
+                break;
+        }
+    });
 
-function buildEditor(value) {
-    try {
+    function buildEditor(value) {
         const instance = new tui.Editor({
             el: document.querySelector('#editorSection'),
             initialEditType: 'wysiwyg',
             previewStyle: 'tab',
             height: 'auto',
             hideModeSwitch: true,
-            initialValue: value
+            initialValue: value,
+            usageStatistics: false,
+            events: {
+                'change': () => {
+                    if (ignoreChange) {
+                        return;
+                    }
+
+                    vscode.postMessage({ type: 'webview->exthost:changeContent', payload: instance.getValue() });
+                }
+            }
         });
 
         instance.getHtml();
-    } catch (error) {
-        console.error(error);
-    }
-}
 
+        return instance;
+    }
+})();

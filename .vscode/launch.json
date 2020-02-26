@@ -12,7 +12,8 @@
 			"runtimeExecutable": "${execPath}",
 			"args": [
 				"--extensionDevelopmentPath=${workspaceFolder}",
-				"/Users/bpasero/Desktop/test-ts"
+				"/Users/bpasero/Desktop/test-ts",
+				"--extension-development-confirm-save"
 			],
 			"outFiles": [
 				"${workspaceFolder}/out/**/*.js"
