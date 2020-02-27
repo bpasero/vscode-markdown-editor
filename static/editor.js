@@ -10,9 +10,18 @@
     window.addEventListener('message', e => {
         switch (e.data.type) {
             case 'exhost->webview:init':
-                editor = buildEditor(e.data.payload);
+                ignoreChange = true;
+                try {
+                    editor = buildEditor(e.data.payload);
+                } finally {
+                    ignoreChange = false;
+                }
                 break;
             case 'exhost->webview:updateContent':
+                if (e.data.payload === editor.getValue()) {
+                    return; // ignore changes that are not a change actually
+                }
+
                 ignoreChange = true;
                 try {
                     editor.setValue(e.data.payload);

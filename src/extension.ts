@@ -7,7 +7,8 @@ export function activate(context: vscode.ExtensionContext) {
 	console.log('Congratulations, your extension "custom-text-editor" is now active!');
 
 	vscode.window.registerCustomEditorProvider('markdown.wysiwygEditor', new CustomMarkdownEditorProvider(), {
-		retainContextWhenHidden: false
+		retainContextWhenHidden: false,
+		enableFindWidget: true
 	});
 }
 
@@ -44,6 +45,7 @@ class CustomMarkdownEditor {
 					break;
 				case 'webview->exthost:changeContent':
 					this.changeContent(e.payload);
+					break;
 			}
 		});
 
@@ -91,6 +93,10 @@ class CustomMarkdownEditor {
 	}
 
 	private changeContent(newContent: string): void {
+		if (newContent === this.document.getText()) {
+			return; // ignore changes that are not a change actually
+		}
+
 		(async () => {
 			this.ignoreContentChanges = true;
 			try {
