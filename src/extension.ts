@@ -62,6 +62,10 @@ class CustomMarkdownEditor {
 
 		// listen for changes and send over
 		this.disposables.push(vscode.workspace.onDidChangeTextDocument(e => {
+			if (e.document !== this.document) {
+				return;
+			}
+
 			if (this.ignoreContentChanges) {
 				return;
 			}
