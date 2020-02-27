@@ -2,6 +2,7 @@
 	"name": "custom-text-editor",
 	"displayName": "custom-text-editor",
 	"description": "",
+	"publisher": "whatever",
 	"version": "0.0.1",
 	"enableProposedApi": true,
 	"engines": {
