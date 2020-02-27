@@ -11,7 +11,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onWebviewEditor:markdown.wysiwygEditor"
+		"onCustomEditor:markdown.wysiwygEditor"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -48,5 +48,7 @@
 		"typescript": "^3.7.5",
 		"vscode-test": "^1.3.0"
 	},
-	"dependencies": {}
+	"dependencies": {
+		"tui-editor": "^1.4.10"
+	}
 }

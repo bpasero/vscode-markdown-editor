@@ -77,13 +77,11 @@ class CustomMarkdownEditor {
 			<head>
 				
 			<!-- Styles -->
-				<link rel="stylesheet" href="https://uicdn.toast.com/tui-editor/latest/tui-editor.css"></link>
-				<link rel="stylesheet" href="https://uicdn.toast.com/tui-editor/latest/tui-editor-contents.css"></link>
-				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css"></link>
-				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css"></link>
+				<link rel="stylesheet" href="${panel.webview.asWebviewUri(vscode.Uri.file(path.resolve(__dirname, '..', 'node_modules', 'tui-editor', 'dist')))}/tui-editor.css"></link>
+				<link rel="stylesheet" href="${panel.webview.asWebviewUri(vscode.Uri.file(path.resolve(__dirname, '..', 'node_modules', 'tui-editor', 'dist')))}/tui-editor-contents.css"></link>
 				
 				<!-- Scripts -->
-				<script src="https://uicdn.toast.com/tui-editor/latest/tui-editor-Editor-full.js"></script>
+				<script src="${panel.webview.asWebviewUri(vscode.Uri.file(path.resolve(__dirname, '..', 'node_modules', 'tui-editor', 'dist')))}/tui-editor-Editor-full.js"></script>
 			</head>	
 			<body>
 				<div id="editorSection"></div>
