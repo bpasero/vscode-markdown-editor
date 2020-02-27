@@ -48,7 +48,5 @@
 		"typescript": "^3.7.5",
 		"vscode-test": "^1.3.0"
 	},
-	"dependencies": {
-		"tui-editor": "^1.4.10"
-	}
+	"dependencies": {}
 }
