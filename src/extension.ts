@@ -6,17 +6,14 @@ export function activate(context: vscode.ExtensionContext) {
 
 	console.log('Congratulations, your extension "custom-text-editor" is now active!');
 
-	vscode.window.registerCustomEditorProvider('markdown.wysiwygEditor', new CustomMarkdownEditorProvider(), {
-		retainContextWhenHidden: false,
-		enableFindWidget: true
-	});
+	vscode.window.registerCustomEditorProvider('markdown.wysiwygEditor', new CustomMarkdownEditorProvider(), {	});
 }
 
 export class CustomMarkdownEditorProvider implements vscode.CustomTextEditorProvider {
 
 	private mapDocumentToEditor: Map<vscode.TextDocument, CustomMarkdownEditor> = new Map();
 
-	async resolveCustomTextEditor(document: vscode.TextDocument, panel: vscode.WebviewPanel): Promise<void> {
+	async resolveCustomTextEditor(document: vscode.TextDocument, panel: vscode.WebviewPanel, token: vscode.CancellationToken): Promise<void> {
 		let editor = this.mapDocumentToEditor.get(document);
 		if (!editor) {
 			editor = new CustomMarkdownEditor(document, panel);
